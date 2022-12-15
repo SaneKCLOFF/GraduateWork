@@ -1,0 +1,44 @@
+﻿<Window x:Class="GraduateWork.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraduateWork.Views"
+        xmlns:viewModel="clr-namespace:GraduateWork.ViewModels"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="500" Width="400"
+        Icon="\Resources\Icon.ico"
+        Background="{StaticResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <viewModel:LoginWindowViewModel/>
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+        <Image Source="\Resources\Logo.png"
+               Height="150"
+               Width="150"
+               Margin="0,40,0,0"
+               Stretch="Uniform"/>
+        <TextBlock Text="Логин" 
+                   HorizontalAlignment="Center"
+                   Margin="0,10"
+                   Style="{StaticResource textBlockStyle}"/>
+        <TextBox x:Name="TextBoxLogin"
+                 Margin="40,10"
+                 Style="{StaticResource textBoxStyle}"/>
+        <TextBlock Text="Пароль" 
+                   HorizontalAlignment="Center"
+                   Margin="0,10"
+                   Style="{StaticResource textBlockStyle}"/>
+        <TextBox x:Name="TextBoxPassword"
+                 Margin="40,10"
+                 Style="{StaticResource textBoxStyle}"/>
+        <Button x:Name="ButtonLogin"
+                Margin="40,10"
+                Height="50"
+                Width="100"
+                Content="Войти"
+                Style="{StaticResource buttonStyle}"
+                Click="ButtonLogin_Click"/>
+    </StackPanel>
+</Window>

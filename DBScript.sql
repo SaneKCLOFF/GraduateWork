@@ -1,7 +1,7 @@
-CREATE DATABASE ProductsService
-GO
-USE ProductsService
-GO
+--CREATE DATABASE ProductsService
+--GO
+--USE ProductsService
+--GO
 
 CREATE TABLE Roles
 (

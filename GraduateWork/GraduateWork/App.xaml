@@ -2,8 +2,37 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GraduateWork"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="BackgroundColor" Color="#06798F"/>
+            <SolidColorBrush x:Key="ButtonColor" Color="#FFAB5E"/>
+            <SolidColorBrush x:Key="FontColor" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="TextBoxBackground" Color="#FAFAFA"/>
+
+            <Style x:Key="textBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Calibri"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
+            <Style x:Key="textBlockStyle" TargetType="TextBlock">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Calibri"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+            </Style>
+
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Calibri"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Background" Value="{StaticResource ButtonColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
