@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GraduateWork.Models.Entities
 {
@@ -24,5 +25,11 @@ namespace GraduateWork.Models.Entities
         public virtual Role Role { get; set; } = null!;
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
+
+        [NotMapped]
+        public string UserFullName
+        {
+            get => $"{LastName} {FirstName[0]}. {MiddleName[0]}.";
+        }
     }
 }

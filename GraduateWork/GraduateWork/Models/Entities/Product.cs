@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GraduateWork.Models.Entities
 {
@@ -19,5 +20,12 @@ namespace GraduateWork.Models.Entities
 
         public virtual ProductCategory Category { get; set; } = null!;
         public virtual ICollection<Order> Orders { get; set; }
+
+        [NotMapped]
+        public string CorrectImagePath
+        {
+            get => (Image == null | Image == string.Empty)
+                ? @"\Resources\picture.png" : $@"\Resources\Pictures\{Image}";
+        }
     }
 }

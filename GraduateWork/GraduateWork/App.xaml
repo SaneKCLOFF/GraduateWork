@@ -5,7 +5,13 @@
              StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                Source="\Resources\Styles\SideButtonsStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
             <SolidColorBrush x:Key="BackgroundColor" Color="#06798F"/>
+            <SolidColorBrush x:Key="DarkBackgroundColor" Color="#FF035463"/>
             <SolidColorBrush x:Key="ButtonColor" Color="#FFAB5E"/>
             <SolidColorBrush x:Key="FontColor" Color="#FFFFFF"/>
             <SolidColorBrush x:Key="TextBoxBackground" Color="#FAFAFA"/>
@@ -33,6 +39,7 @@
                 <Setter Property="Background" Value="{StaticResource ButtonColor}"/>
                 <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
             </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

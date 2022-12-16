@@ -13,7 +13,11 @@ namespace GraduateWork.ViewModels
     internal class LoginWindowViewModel:ViewModelBase
     {
         private User _currentUser=new();
-        public User CurrentUser { get => _currentUser; set => _currentUser = value; }
+        public User CurrentUser 
+        { 
+            get => _currentUser; 
+            set => Set(ref _currentUser, value, nameof(CurrentUser)); 
+        }
 
         internal void Login()
         {
@@ -25,7 +29,7 @@ namespace GraduateWork.ViewModels
                 else if (context.Users.Where(u => u.Login == CurrentUser.Login && u.Password == CurrentUser.Password).Count() == 0)
                     MessageBox.Show("Неправильный логин или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
-                    new MainWindow().ShowDialog();
+                    new MainWindow(context.Users.Where(u => u.Login == CurrentUser.Login && u.Password == CurrentUser.Password).Single()).ShowDialog();
             }
         }
     }

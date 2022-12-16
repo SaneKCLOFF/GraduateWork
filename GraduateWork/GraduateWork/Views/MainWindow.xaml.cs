@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GraduateWork.Models.Entities;
+using GraduateWork.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,20 @@ namespace GraduateWork.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private MainWindowViewModel _viewModel;
+        public MainWindow(User user)
         {
             InitializeComponent();
+            _viewModel = new MainWindowViewModel(user);
+            this.Title = $"Учётная запись: {user.UserFullName}";
+            DataContext = _viewModel;
+
+            if (user.RoleId!=1)
+            {
+                ButtonOrdersControl.Visibility = Visibility.Hidden;
+                ButtonRequestsControl.Visibility = Visibility.Hidden;
+                ButtonUsersControl.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

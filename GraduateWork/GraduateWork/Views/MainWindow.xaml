@@ -8,11 +8,137 @@
         mc:Ignorable="d"
         Title="Главное окно" Height="600" Width="1000"
         Background="{StaticResource BackgroundColor}"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="\Resources\Icon.ico"
+        FontFamily="Calibri"
+        FontSize="12">
     <!--<Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>-->
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="0"
+                    Background="{StaticResource DarkBackgroundColor}">
+            <Button x:Name="ButtonOrders"
+                    Style="{StaticResource OrdersButtonStyle}"/>
+
+            <Button x:Name="ButtonRequests"
+                    Style="{StaticResource ServicesButtonStyle}"/>
+
+            <Button x:Name="ButtonUsersControl"
+                    Style="{StaticResource UsersAdminButtonStyle}"/>
+
+            <Button x:Name="ButtonOrdersControl"
+                    Style="{StaticResource OrdersAdminButtonStyle}"/>
+
+            <Button x:Name="ButtonRequestsControl"
+                    Style="{StaticResource ServicesAdminButtonStyle}"/>
+
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="TextBoxSearch"
+                         BorderThickness="0"
+                         Margin="20"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"
+                         Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <ComboBox Grid.Column="1"
+                          Margin="20"
+                          ItemsSource="{Binding SortValues}"
+                          SelectedItem="{Binding SortValue}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center">
+                </ComboBox>
+                <ComboBox Grid.Column="2"
+                          Margin="20"
+                          ItemsSource="{Binding FiltherValues}"
+                          SelectedItem="{Binding FiltherValue}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"/>
+            </Grid>
+            <ListView Background="Transparent"
+                  x:Name="ListViewProducts"
+                  ItemsSource="{Binding DisplayingProducts, UpdateSourceTrigger=PropertyChanged}"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  BorderThickness="0"
+                  Grid.Row="1">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border x:Name="Border"
+                                                Background="{StaticResource TextBoxBackground}"
+                                                Margin="10,7"
+                                                Height="80"
+                                                CornerRadius="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0"
+                                                       Source="{Binding CorrectImagePath}"
+                                                       Margin="2"
+                                                       Height="70"
+                                                       Width="70"
+                                                       Stretch="Uniform"/>
+                                            <StackPanel Grid.Column="1"
+                                                            Orientation="Vertical">
+                                                <TextBlock Text="{Binding Title}"
+                                                               Margin="5,2,0,2"
+                                                               FontWeight="Bold"
+                                                               FontSize="14"/>
+                                                <TextBlock Text="{Binding Description}"
+                                                               Margin="5,2,0,2"
+                                                               TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="2" 
+                                                           Text="{Binding Cost, StringFormat={}{0} руб.}"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           FontWeight="Black"/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.Row="2"
+                       x:Name="TextBlockCountOfProducts"
+                       Text="{Binding ElementsCount, UpdateSourceTrigger=PropertyChanged}"
+                       Foreground="{StaticResource FontColor}"
+                       FontSize="20"
+                       FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </Window>
