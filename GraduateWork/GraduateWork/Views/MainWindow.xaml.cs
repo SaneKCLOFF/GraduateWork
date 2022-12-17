@@ -36,5 +36,15 @@ namespace GraduateWork.Views
                 ButtonUsersControl.Visibility = Visibility.Hidden;
             }
         }
+
+        private void buttonAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.AddOrder();
+        }
+
+        private void ButtonOrders_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.OpenUserOrders();
+        }
     }
 }

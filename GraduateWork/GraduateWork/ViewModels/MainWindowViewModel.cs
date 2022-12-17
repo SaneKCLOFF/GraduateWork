@@ -1,11 +1,13 @@
 ﻿using GraduateWork.Models;
 using GraduateWork.Models.Entities;
+using GraduateWork.Views;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GraduateWork.ViewModels
 {
@@ -14,6 +16,7 @@ namespace GraduateWork.ViewModels
         private User _currentUser;
         private List<Product> _displayingProducts;
         private string _elementsCount;
+        private Product _selectedProduct;
 
         private string _searchValue;
         private string _filtherValue;
@@ -76,7 +79,11 @@ namespace GraduateWork.ViewModels
                 DisplayProducts();
             } 
         }
-
+        public Product SelectedProduct 
+        { 
+            get => _selectedProduct;
+            set => Set(ref _selectedProduct, value, nameof(SelectedProduct));
+        }
         public MainWindowViewModel(User currentUser)
         {
             CurrentUser = currentUser;
@@ -125,6 +132,26 @@ namespace GraduateWork.ViewModels
                 return products.OrderByDescending(p => p.Cost).ToList();
             else
                 return products;
+        }
+
+        internal void AddOrder()
+        {
+            using (ApplicationDbContext context = new())
+            {
+                Order newOrder = new Order()
+                {
+                    UserId=CurrentUser.Id,
+                    ProductId=SelectedProduct.Id,
+                    OrderStatus = "Ожидает ответа",
+                };
+                context.Orders.Add(newOrder);
+                context.SaveChanges();
+                MessageBox.Show("Продукт успешно заказан!","Уведомление",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+        }
+        internal void OpenUserOrders()
+        {
+            new UserOrdersWindow(CurrentUser).ShowDialog();
         }
     }
 }

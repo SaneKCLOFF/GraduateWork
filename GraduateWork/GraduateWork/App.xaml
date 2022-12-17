@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                 Source="\Resources\Styles\SideButtonsStyles.xaml"/>
+                <ResourceDictionary
+                Source="\Resources\Styles\ComboBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <SolidColorBrush x:Key="BackgroundColor" Color="#06798F"/>

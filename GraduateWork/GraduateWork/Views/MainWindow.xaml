@@ -24,10 +24,14 @@
                     Grid.Column="0"
                     Background="{StaticResource DarkBackgroundColor}">
             <Button x:Name="ButtonOrders"
-                    Style="{StaticResource OrdersButtonStyle}"/>
+                    Style="{StaticResource OrdersButtonStyle}"
+                    Click="ButtonOrders_Click"/>
 
             <Button x:Name="ButtonRequests"
                     Style="{StaticResource ServicesButtonStyle}"/>
+            
+            <Button x:Name="ButtonSettings"
+                    Style="{StaticResource SettingsButtonStyle}"/>
 
             <Button x:Name="ButtonUsersControl"
                     Style="{StaticResource UsersAdminButtonStyle}"/>
@@ -85,7 +89,18 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   BorderThickness="0"
-                  Grid.Row="1">
+                  Grid.Row="1"
+                      SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ContextMenu>
+                    <ContextMenu Background="{StaticResource ButtonColor}">
+                        <MenuItem Header="Заказать"
+                                  Foreground="{StaticResource FontColor}"
+                                  FontWeight="Bold"
+                                  x:Name="buttonAddProduct"
+                                  Click="buttonAddProduct_Click">
+                        </MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template">

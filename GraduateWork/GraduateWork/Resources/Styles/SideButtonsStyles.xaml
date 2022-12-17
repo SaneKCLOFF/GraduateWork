@@ -145,4 +145,33 @@
         </Setter>
     </Style>
     <!--#endregion-->
+    <!--#region SettingslButton-->
+    <ImageBrush x:Key="SettingsButton" 
+                    ImageSource="\Resources\Icons\Settings.png" 
+                    Stretch="Uniform"/>
+    <ImageBrush x:Key="SettingsButton_Active" 
+                    ImageSource="\Resources\Icons\Settings_Active.png" 
+                    Stretch="Uniform"/>
+
+    <Style x:Key="SettingsButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource SettingsButton}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="SettingsButtonBorder" 
+                                Background="{TemplateBinding Background}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="SettingsButtonBorder" Value="{StaticResource SettingsButton_Active}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
 </ResourceDictionary>

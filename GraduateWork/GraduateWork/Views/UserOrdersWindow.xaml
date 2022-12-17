@@ -1,0 +1,129 @@
+﻿<Window x:Class="GraduateWork.Views.UserOrdersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraduateWork.Views"
+        mc:Ignorable="d"
+        Title="Просмотр заказов" Height="600" Width="1000"
+        Background="{StaticResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen"
+        Icon="\Resources\Icon.ico"
+        FontFamily="Calibri"
+        FontSize="12">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TextBoxSearch"
+                         BorderThickness="0"
+                         Margin="20"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"
+                         Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <ComboBox Grid.Column="1"
+                          Margin="20"
+                          ItemsSource="{Binding SortValues}"
+                          SelectedItem="{Binding SortValue}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center">
+            </ComboBox>
+            <ComboBox Grid.Column="2"
+                          Margin="20"
+                          ItemsSource="{Binding FiltherValues}"
+                          SelectedItem="{Binding FiltherValue}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"/>
+        </Grid>
+        <ListView Background="Transparent"
+                  x:Name="ListViewOrders"
+                  ItemsSource="{Binding DisplayingOrders, UpdateSourceTrigger=PropertyChanged}"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  BorderThickness="0"
+                  Grid.Row="1"
+                      SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ContextMenu>
+                <ContextMenu Background="{StaticResource ButtonColor}">
+                    <MenuItem Header="Отменить"
+                                  Foreground="{StaticResource FontColor}"
+                                  FontWeight="Bold"
+                                  x:Name="buttonDeleteOrder"
+                              Click="buttonDeleteOrder_Click">
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="Border"
+                                                Background="{StaticResource TextBoxBackground}"
+                                                Margin="10,7"
+                                                Height="80"
+                                                CornerRadius="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                                       Source="{Binding Product.CorrectImagePath}"
+                                                       Margin="2"
+                                                       Height="70"
+                                                       Width="70"
+                                                       Stretch="Uniform"/>
+                                        <StackPanel Grid.Column="1"
+                                                            Orientation="Vertical">
+                                            <TextBlock Text="{Binding Product.Title}"
+                                                               Margin="5,2,0,2"
+                                                               FontWeight="Bold"
+                                                               FontSize="14"/>
+                                            <TextBlock Text="{Binding Product.Description}"
+                                                               Margin="5,2,0,2"
+                                                               TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding OrderStatus, StringFormat=Статус: {0}}"
+                                                        Margin="5,2,0,2"
+                                                       FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="2" 
+                                                           Text="{Binding Product.Cost, StringFormat={}{0} руб.}"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           FontWeight="Black"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.Row="2"
+                       x:Name="TextBlockCountOfProducts"
+                       Text="{Binding ElementsCount, UpdateSourceTrigger=PropertyChanged}"
+                       Foreground="{StaticResource FontColor}"
+                       FontSize="20"
+                       FontWeight="Bold"/>
+    </Grid>
+</Window>
