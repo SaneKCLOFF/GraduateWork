@@ -28,7 +28,8 @@
                     Click="ButtonOrders_Click"/>
 
             <Button x:Name="ButtonRequests"
-                    Style="{StaticResource ServicesButtonStyle}"/>
+                    Style="{StaticResource ServicesButtonStyle}"
+                    Click="ButtonRequests_Click"/>
             
             <Button x:Name="ButtonSettings"
                     Style="{StaticResource SettingsButtonStyle}"/>
@@ -106,7 +107,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListViewItem">
-                                    <Border x:Name="Border"
+                                    <Border x:Name="BorderItem"
                                                 Background="{StaticResource TextBoxBackground}"
                                                 Margin="10,7"
                                                 Height="80"
@@ -140,6 +141,12 @@
                                                            FontWeight="Black"/>
                                         </Grid>
                                     </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="BorderThickness" TargetName="BorderItem" Value="2"/>
+                                            <Setter Property="BorderBrush" TargetName="BorderItem" Value="{StaticResource ButtonColor}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

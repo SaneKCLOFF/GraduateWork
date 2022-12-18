@@ -1,0 +1,79 @@
+﻿<Window x:Class="GraduateWork.Views.AddRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraduateWork.Views"
+        mc:Ignorable="d"
+        Title="Выбор услуги" Height="550" Width="650"
+        Background="{StaticResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen"
+        Icon="\Resources\Icon.ico"
+        FontFamily="Calibri"
+        FontSize="12">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Выбор услуги"
+                   Grid.Row="0"
+                   FontSize="40"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   Foreground="{StaticResource FontColor}"/>
+        <ListView x:Name="ListViewServices"
+                  Background="Transparent"
+                  Grid.Row="1"
+                  BorderThickness="0"
+                  SelectedItem="{Binding SelectedService}"
+                  ItemsSource="{Binding DisplayingServices}"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="BorderItem"
+                                        Background="{StaticResource TextBoxBackground}"
+                                        Margin="10,7"
+                                        Height="80"
+                                        CornerRadius="10">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Margin="5,2,0,2"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   Text="{Binding Title}"/>
+                                        <TextBlock Margin="5,2,0,2"
+                                                   TextWrapping="Wrap"
+                                                   Text="{Binding Description}"/>
+                                    </StackPanel>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="BorderThickness" TargetName="BorderItem" Value="2"/>
+                                        <Setter Property="BorderBrush" TargetName="BorderItem" Value="{StaticResource ButtonColor}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <Button x:Name="ButtonAddRequest"
+                Style="{StaticResource buttonStyle}"
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="50"
+                Width="200"
+                Content="Заказать"
+                FontSize="30"
+                Click="ButtonAddRequest_Click"/>
+    </Grid>
+</Window>

@@ -46,5 +46,10 @@ namespace GraduateWork.Views
         {
             _viewModel.OpenUserOrders();
         }
+
+        private void ButtonRequests_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.OpenUserRequests();
+        }
     }
 }

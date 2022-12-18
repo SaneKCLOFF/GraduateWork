@@ -1,11 +1,11 @@
-﻿<Window x:Class="GraduateWork.Views.UserOrdersWindow"
+﻿<Window x:Class="GraduateWork.Views.UserRequestsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraduateWork.Views"
         mc:Ignorable="d"
-        Title="Просмотр заказов" Height="600" Width="1000"
+        Title="Услуги" Height="600" Width="1000"
         Background="{StaticResource BackgroundColor}"
         WindowStartupLocation="CenterScreen"
         Icon="\Resources\Icon.ico"
@@ -38,34 +38,33 @@
             </TextBox>
             <ComboBox Grid.Column="1"
                           Margin="20"
-                          ItemsSource="{Binding SortValues}"
-                          SelectedItem="{Binding SortValue}"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center">
-            </ComboBox>
-            <ComboBox Grid.Column="2"
-                          Margin="20"
                           ItemsSource="{Binding FiltherValues}"
                           SelectedItem="{Binding FiltherValue}"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"/>
+            <Button Grid.Column="2"
+                    Margin="20"
+                    Style="{StaticResource buttonStyle}"
+                    Content="Заказать услугу"
+                    x:Name="ButtonAddRequest"
+                    Click="ButtonAddRequest_Click"/>
         </Grid>
         <ListView Background="Transparent"
-                  x:Name="ListViewOrders"
-                  ItemsSource="{Binding DisplayingOrders, UpdateSourceTrigger=PropertyChanged}"
+                  x:Name="ListViewRequests"
+                  ItemsSource="{Binding DisplayingRequests, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalContentAlignment="Stretch"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   BorderThickness="0"
                   Grid.Row="1"
-                      SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged}">
+                      SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
             <ListView.ContextMenu>
                 <ContextMenu Background="{StaticResource ButtonColor}">
                     <MenuItem Header="Отменить"
                                   Foreground="{StaticResource FontColor}"
                                   FontWeight="Bold"
-                                  x:Name="buttonDeleteOrder"
-                              Click="buttonDeleteOrder_Click">
+                                  x:Name="buttonDeleteRequest"
+                              Click="buttonDeleteRequest_Click">
                     </MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
@@ -80,35 +79,18 @@
                                                 Height="80"
                                                 CornerRadius="10">
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition Width="100"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0"
-                                                       Source="{Binding Product.CorrectImagePath}"
-                                                       Margin="2"
-                                                       Height="70"
-                                                       Width="70"
-                                                       Stretch="Uniform"/>
-                                        <StackPanel Grid.Column="1"
-                                                            Orientation="Vertical">
-                                            <TextBlock Text="{Binding Product.Title}"
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Service.Title}"
                                                                Margin="5,2,0,2"
                                                                FontWeight="Bold"
                                                                FontSize="14"/>
-                                            <TextBlock Text="{Binding Product.Description}"
+                                            <TextBlock Text="{Binding Service.Description}"
                                                                Margin="5,2,0,2"
                                                                TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding OrderStatus, StringFormat=Статус: {0}}"
-                                                        Margin="5,2,0,2"
+                                            <TextBlock Text="{Binding RequestStatus,StringFormat=Статус: {0}}"
+                                                       Margin="5,2,0,2"
                                                        FontWeight="Bold"/>
                                         </StackPanel>
-                                        <TextBlock Grid.Column="2" 
-                                                           Text="{Binding Product.Cost, StringFormat={}{0} руб.}"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Center"
-                                                           FontWeight="Black"/>
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>

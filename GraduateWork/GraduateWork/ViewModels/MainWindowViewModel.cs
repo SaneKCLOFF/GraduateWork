@@ -153,5 +153,9 @@ namespace GraduateWork.ViewModels
         {
             new UserOrdersWindow(CurrentUser).ShowDialog();
         }
+        internal void OpenUserRequests()
+        {
+            new UserRequestsWindow(CurrentUser).ShowDialog();
+        }
     }
 }
