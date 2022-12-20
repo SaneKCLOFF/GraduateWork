@@ -10,6 +10,8 @@
                 Source="\Resources\Styles\SideButtonsStyles.xaml"/>
                 <ResourceDictionary
                 Source="\Resources\Styles\ComboBoxStyles.xaml"/>
+                <ResourceDictionary
+                Source="\Resources\Styles\TabItemStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <SolidColorBrush x:Key="BackgroundColor" Color="#06798F"/>

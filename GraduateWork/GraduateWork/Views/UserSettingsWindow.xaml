@@ -1,0 +1,108 @@
+﻿<Window x:Class="GraduateWork.Views.UserSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraduateWork.Views"
+        mc:Ignorable="d"
+        Title="Настройки" Height="600" Width="500"
+        Background="{StaticResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen"
+        Icon="\Resources\Icon.ico"
+        FontFamily="Calibri"
+        FontSize="12">
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Логин"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"
+                   Margin="0,20,0,0"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,0"
+                 Text="{Binding EditedUser.Login, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Пароль"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,10"
+                 Text="{Binding EditedUser.Password, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Фамилия"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,10"
+                 Text="{Binding EditedUser.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Имя"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,10"
+                 Text="{Binding EditedUser.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Отчество"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,10"
+                 Text="{Binding EditedUser.MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Телефон"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,10"
+                 Text="{Binding EditedUser.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="E-Mail"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"/>
+        <TextBox HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250"
+                 Height="25"
+                 Margin="0,0,0,10"
+                 Text="{Binding EditedUser.Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="Роль"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="{StaticResource FontColor}"
+                   x:Name="TextBlockRole"/>
+        <ComboBox  Width="250"
+                   Height="25"
+                   Margin="0,0,0,10"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   ItemsSource="{Binding Roles, UpdateSourceTrigger=PropertyChanged}"
+                   SelectedItem="{Binding EditedUser.Role, UpdateSourceTrigger=PropertyChanged}"
+                   DisplayMemberPath="Title"
+                   x:Name="ComboBoxRoles"/>
+        <Button Style="{StaticResource buttonStyle}"
+                Width="250"
+                Height="40"
+                Margin="0,20,0,0"
+                Content="Сохранить"
+                x:Name="ButtonSaveUser"
+                Click="ButtonSaveUser_Click"/>
+    </StackPanel>
+</Window>

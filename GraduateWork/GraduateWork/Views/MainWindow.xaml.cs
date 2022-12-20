@@ -51,5 +51,15 @@ namespace GraduateWork.Views
         {
             _viewModel.OpenUserRequests();
         }
+
+        private void ButtonSettings_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.OpenUserSetings();
+        }
+
+        private void ButtonUsersControl_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.OpenAdminControl(0);
+        }
     }
 }

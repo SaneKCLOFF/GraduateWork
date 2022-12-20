@@ -1,6 +1,7 @@
 ﻿using GraduateWork.Models;
 using GraduateWork.Models.Entities;
 using GraduateWork.Views;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,9 @@ namespace GraduateWork.ViewModels
                 else if (context.Users.Where(u => u.Login == CurrentUser.Login && u.Password == CurrentUser.Password).Count() == 0)
                     MessageBox.Show("Неправильный логин или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
-                    new MainWindow(context.Users.Where(u => u.Login == CurrentUser.Login && u.Password == CurrentUser.Password).Single()).ShowDialog();
+                    new MainWindow(context.Users.Include(u=>u.Role)
+                        .Where(u => u.Login == CurrentUser.Login && u.Password == CurrentUser.Password)
+                        .Single()).ShowDialog();
             }
         }
     }

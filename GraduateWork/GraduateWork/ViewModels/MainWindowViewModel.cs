@@ -157,5 +157,13 @@ namespace GraduateWork.ViewModels
         {
             new UserRequestsWindow(CurrentUser).ShowDialog();
         }
+        internal void OpenUserSetings()
+        {
+            new UserSettingsWindow(CurrentUser).ShowDialog();
+        }
+        internal void OpenAdminControl(int tabIndex)
+        {
+            new AdminControlWindow().ShowDialog();
+        }
     }
 }

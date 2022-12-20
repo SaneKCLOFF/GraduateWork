@@ -32,10 +32,12 @@
                     Click="ButtonRequests_Click"/>
             
             <Button x:Name="ButtonSettings"
-                    Style="{StaticResource SettingsButtonStyle}"/>
+                    Style="{StaticResource SettingsButtonStyle}"
+                    Click="ButtonSettings_Click"/>
 
             <Button x:Name="ButtonUsersControl"
-                    Style="{StaticResource UsersAdminButtonStyle}"/>
+                    Style="{StaticResource UsersAdminButtonStyle}"
+                    Click="ButtonUsersControl_Click"/>
 
             <Button x:Name="ButtonOrdersControl"
                     Style="{StaticResource OrdersAdminButtonStyle}"/>

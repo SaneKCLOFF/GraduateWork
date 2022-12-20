@@ -1,7 +1,7 @@
 --CREATE DATABASE ProductsService
 --GO
---USE ProductsService
---GO
+USE ProductsService
+GO
 
 CREATE TABLE Roles
 (
@@ -19,7 +19,7 @@ CREATE TABLE [Users]
 	MiddleName NVARCHAR(50) NOT NULL,
 	PhoneNumber NVARCHAR(11) NOT NULL,
 	Email NVARCHAR(255) NOT NULL,
-	RoleId INT REFERENCES Roles(ID) NOT NULL,
+	RoleId INT REFERENCES Roles(ID) ON DELETE CASCADE NOT NULL,
 )
 
 CREATE TABLE ProductCategories
@@ -35,14 +35,14 @@ CREATE TABLE Products
 	[Description] NVARCHAR(MAX) NULL,
 	[Image] NVARCHAR(MAX) NOT NULL,
 	Cost DECIMAL(10,2) NOT NULL,
-	CategoryId INT REFERENCES ProductCategories(ID) NOT NULL,
+	CategoryId INT REFERENCES ProductCategories(ID) ON DELETE CASCADE NOT NULL,
 )
 
 CREATE TABLE [Orders]
 (
 	ID INT IDENTITY PRIMARY KEY NOT NULL,
-	ProductId INT REFERENCES Products(ID) NOT NULL,
-	UserId INT REFERENCES Users(ID) NOT NULL,
+	ProductId INT REFERENCES Products(ID) ON DELETE CASCADE NOT NULL,
+	UserId INT REFERENCES Users(ID) ON DELETE CASCADE NOT NULL,
 	OrderStatus NVARCHAR(20) NOT NULL
 )
 
@@ -57,7 +57,7 @@ CREATE TABLE [Requests]
 (
 	ID INT IDENTITY PRIMARY KEY NOT NULL,
 	UserId INT REFERENCES Users(ID) NOT NULL,
-	ServiceId INT REFERENCES [Services](ID) NOT NULL,
+	ServiceId INT REFERENCES [Services](ID) ON DELETE CASCADE NOT NULL,
 	RequestStatus NVARCHAR(20) NOT NULL
 )
 GO
@@ -116,3 +116,10 @@ INSERT INTO [dbo].[Services]([Title],[Description])
 		   ('Техподдержка','Поддержка 1С – профессиональное решение вопросов по использованию 1С без ограничения по количеству обращений.')
 GO
 
+--DROP TABLE [Requests]
+--DROP TABLE [Services]
+--DROP TABLE [Orders]
+--DROP TABLE Products
+--DROP TABLE ProductCategories
+--DROP TABLE [Users]
+--DROP TABLE Roles
