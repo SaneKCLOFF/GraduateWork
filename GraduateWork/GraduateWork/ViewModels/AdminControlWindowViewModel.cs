@@ -239,7 +239,6 @@ namespace GraduateWork.ViewModels
                 DisplayOrders();
             }
         }
-
         private List<Order> GetOrders()
         {
             using (ApplicationDbContext context = new())
@@ -251,7 +250,6 @@ namespace GraduateWork.ViewModels
                     .ToList();
             }
         }
-
         private void DisplayOrders()
         {
             OrdersList=Sort(Search(Filther(GetOrders())));
@@ -279,7 +277,7 @@ namespace GraduateWork.ViewModels
         {
             if (OrderSortValue == OrderSortValues[1])
                 return orders.OrderBy(o => o.UserId).ToList();
-            else if (UserSortValue == UserSortValues[2])
+            else if (OrderSortValue == OrderSortValues[2])
                 return orders.OrderByDescending(o => o.UserId).ToList();
             else
                 return orders;
@@ -297,7 +295,6 @@ namespace GraduateWork.ViewModels
                 }
             }
         }
-
         internal void SetStatusToWaiting()
         {
             using (ApplicationDbContext context = new())
@@ -350,10 +347,188 @@ namespace GraduateWork.ViewModels
             }
         }
         #endregion
+        #region Request
+        private List<Request> _requestsList;
+        private Request _selectedRequest;
+        private string _requestElementsCount;
+
+        private string _requestSearchValue;
+        private string _requestSortValue;
+        private string _requestFiltherValue;
+        public List<string> RequestFiltherValues { get; } = new List<string>()
+        {
+            "Все статусы",
+            "Ожидает ответа",
+            "В процессе",
+            "Выполнен"
+        };
+        public List<string> RequestSortValues { get; } = new List<string>()
+        {
+            "Без сортировки",
+            "По пользователю(возр.)",
+            "По пользователю(убыв.)",
+        };
+        public List<Request> RequestsList
+        {
+            get => _requestsList;
+            set
+            {
+                Set(ref _requestsList, value, nameof(RequestsList));
+                RequestElementsCount = $"{value.Count} / {GetRequests().Count}";
+            }
+        }
+
+        public Request SelectedRequest 
+        { 
+            get => _selectedRequest;
+            set => Set(ref _selectedRequest, value, nameof(SelectedRequest));
+        }
+        public string RequestElementsCount 
+        { 
+            get => _requestElementsCount;
+            set => Set(ref _requestElementsCount, value, nameof(RequestElementsCount));
+        }
+        public string RequestSearchValue 
+        { 
+            get => _requestSearchValue; 
+            set
+            {
+                Set(ref _requestSearchValue, value, nameof(RequestSearchValue));
+                DisplayRequests();
+            }
+        }
+        public string RequestSortValue 
+        { 
+            get => _requestSortValue; 
+            set
+            {
+                Set(ref _requestSortValue, value, nameof(RequestSortValue));
+                DisplayRequests();
+            } 
+        }
+        public string RequestFiltherValue 
+        { 
+            get => _requestFiltherValue; 
+            set
+            {
+                Set(ref _requestFiltherValue, value, nameof(RequestFiltherValue));
+                DisplayRequests();
+            }
+        }
+
+        private List<Request> GetRequests()
+        {
+            using (ApplicationDbContext context = new())
+            {
+                return context.Requests
+                    .Include(r => r.User)
+                    .Include(r => r.Service)
+                    .OrderBy(r => r.Id)
+                    .ToList();
+            }
+        }
+        private void DisplayRequests()
+        {
+            RequestsList = Sort(Search(Filther(GetRequests())));
+        }
+        private List<Request> Search(List<Request> requests)
+        {
+            if (RequestSearchValue == null || RequestSearchValue == string.Empty)
+                return requests;
+            else
+                return requests.Where(r =>
+                r.User.LastName.ToLower().Contains(RequestSearchValue.ToLower()) ||
+                r.User.FirstName.ToLower().Contains(RequestSearchValue.ToLower()) ||
+                r.User.MiddleName.ToLower().Contains(RequestSearchValue.ToLower()) ||
+                r.Service.Title.ToLower().Contains(RequestSearchValue.ToLower())
+                ).ToList();
+        }
+        private List<Request> Filther(List<Request> requests)
+        {
+            if (RequestFiltherValue == RequestFiltherValues[0])
+                return requests;
+            else
+                return requests.Where(r => r.RequestStatus == RequestFiltherValue).ToList();
+        }
+        private List<Request> Sort(List<Request> requests)
+        {
+            if (RequestSortValue == RequestSortValues[1])
+                return requests.OrderBy(r => r.UserId).ToList();
+            else if (RequestSortValue == RequestSortValues[2])
+                return requests.OrderByDescending(r => r.UserId).ToList();
+            else
+                return requests;
+        }
+        internal void DeleteRequest()
+        {
+            using (ApplicationDbContext context = new())
+            {
+                var result = MessageBox.Show("Вы точно удалить этот запрос?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    context.Requests.Remove(SelectedRequest);
+                    context.SaveChanges();
+                    DisplayRequests();
+                }
+            }
+        }
+        internal void RequestSetStatusToWaiting()
+        {
+            using (ApplicationDbContext context = new())
+            {
+                if (SelectedRequest.RequestStatus != "Ожидает ответа")
+                {
+                    SelectedRequest.RequestStatus = "Ожидает ответа";
+                    context.Requests.Update(SelectedRequest);
+                    context.SaveChanges();
+                    DisplayRequests();
+                }
+                else
+                {
+                    MessageBox.Show("У заказа уже назначен этот статус!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        internal void RequestSetStatusToInProgress()
+        {
+            using (ApplicationDbContext context = new())
+            {
+                if (SelectedRequest.RequestStatus != "В процессе")
+                {
+                    SelectedRequest.RequestStatus = "В процессе";
+                    context.Requests.Update(SelectedRequest);
+                    context.SaveChanges();
+                    DisplayRequests();
+                }
+                else
+                {
+                    MessageBox.Show("У заказа уже назначен этот статус!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        internal void RequestSetStatusToCompleted()
+        {
+            using (ApplicationDbContext context = new())
+            {
+                if (SelectedRequest.RequestStatus != "Выполнен")
+                {
+                    SelectedRequest.RequestStatus = "Выполнен";
+                    context.Requests.Update(SelectedRequest);
+                    context.SaveChanges();
+                    DisplayRequests();
+                }
+                else
+                {
+                    MessageBox.Show("У заказа уже назначен этот статус!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        #endregion
         public AdminControlWindowViewModel()
         {
             _usersList = new List<User>(GetUsers());
             _ordersList = new List<Order>(GetOrders());
+            _requestsList= new List<Request>(GetRequests());
             using (ApplicationDbContext context = new())
             {
                 UserFiltherValues.AddRange(context.Roles.Select(r => r.Title));
@@ -362,6 +537,8 @@ namespace GraduateWork.ViewModels
             UserSortValue = UserSortValues[0];
             OrderFiltherValue= OrderFiltherValues[0];
             OrderSortValue = OrderSortValues[0];
+            RequestFiltherValue= RequestFiltherValues[0];
+            RequestSortValue = RequestSortValues[0];
         }
         
         

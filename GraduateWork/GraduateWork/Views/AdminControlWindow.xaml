@@ -304,24 +304,143 @@
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Продукция" Style="{StaticResource AdminTabItem}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Услуги" Style="{StaticResource AdminTabItem}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
+                <!--#region Search-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TextBoxSearchRequests"
+                         BorderThickness="0"
+                         Margin="20"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"
+                         Text="{Binding RequestSearchValue, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <ComboBox Grid.Column="1"
+                          Margin="20"
+                          ItemsSource="{Binding RequestSortValues}"
+                          SelectedItem="{Binding RequestSortValue}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                              FontWeight="Light">
+                    </ComboBox>
+                    <ComboBox Grid.Column="2"
+                          Margin="20"
+                          ItemsSource="{Binding RequestFiltherValues}"
+                          SelectedItem="{Binding RequestFiltherValue}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                              FontWeight="Light">
+                    </ComboBox>
+                </Grid>
+                <!--#endregion-->
+                <!--#region ListView-->
+                <ListView x:Name="ListViewRequests"
+                          Grid.Row="1"
+                          Background="Transparent"
+                          ItemsSource="{Binding RequestsList}"
+                          SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}"
+                          HorizontalContentAlignment="Stretch"
+                          BorderThickness="0"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListView.ContextMenu>
+                        <ContextMenu Background="{StaticResource ButtonColor}">
+                            <MenuItem Header="Удалить"
+                                  Foreground="{StaticResource FontColor}"
+                                  FontWeight="Bold"
+                                  x:Name="MenuItemDeleteRequest"
+                                      Click="MenuItemDeleteRequest_Click">
+                            </MenuItem>
+                            <MenuItem Header="Статус: Ожидает ответа"
+                                  Foreground="{StaticResource FontColor}"
+                                  FontWeight="Bold"
+                                  x:Name="RequestMenuItemStatusToWaiting"
+                                      Click="RequestMenuItemStatusToWaiting_Click">
+                            </MenuItem>
+                            <MenuItem Header="Статус: В процессе"
+                                  Foreground="{StaticResource FontColor}"
+                                  FontWeight="Bold"
+                                  x:Name="RequestMenuItemStatusToInProgress"
+                                      Click="RequestMenuItemStatusToInProgress_Click">
+                            </MenuItem>
+                            <MenuItem Header="Статус: Выполнен"
+                                  Foreground="{StaticResource FontColor}"
+                                  FontWeight="Bold"
+                                  x:Name="RequestMenuItemStatusToCompleted"
+                                      Click="RequestMenuItemStatusToCompleted_Click">
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border x:Name="BorderOrderItem"
+                                                CornerRadius="10"
+                                                Background="{StaticResource TextBoxBackground}"
+                                                Margin="5">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="200"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Vertical"
+                                                            Grid.Column="0"
+                                                            Margin="20,0,0,0">
+                                                    <TextBlock Text="{Binding Service.Title}"/>
+                                                    <TextBlock Text="{Binding Service.Description}"
+                                                               TextWrapping="Wrap"/>
+                                                    <TextBlock Text="{Binding RequestStatus,StringFormat=Статус: {0}}"
+                                                               Margin="0,15,0,0"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1"
+                                                            Orientation="Vertical">
+                                                    <TextBlock Text="Запросил:"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding User.UserFullName}"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="Связаться:"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding User.Email}"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding User.PhoneNumber}"
+                                                               HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="BorderThickness" TargetName="BorderOrderItem" Value="2"/>
+                                                <Setter Property="BorderBrush" TargetName="BorderOrderItem" Value="{StaticResource ButtonColor}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <!--#endregion-->
+                <!--#region ElementsCount-->
+                <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.Row="2"
+                       x:Name="TextBlockCountOfRequests"
+                       Text="{Binding RequestElementsCount, UpdateSourceTrigger=PropertyChanged}"
+                       Foreground="{StaticResource FontColor}"
+                       FontSize="20"
+                       FontWeight="Bold"/>
+                <!--#endregion-->
             </Grid>
         </TabItem>
     </TabControl>

@@ -61,5 +61,25 @@ namespace GraduateWork.Views
         {
             _viewModel.SetStatusToCompleted();
         }
+
+        private void MenuItemDeleteRequest_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.DeleteRequest();
+        }
+
+        private void RequestMenuItemStatusToWaiting_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.RequestSetStatusToWaiting();
+        }
+
+        private void RequestMenuItemStatusToInProgress_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.RequestSetStatusToInProgress();
+        }
+
+        private void RequestMenuItemStatusToCompleted_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.RequestSetStatusToCompleted();
+        }
     }
 }
