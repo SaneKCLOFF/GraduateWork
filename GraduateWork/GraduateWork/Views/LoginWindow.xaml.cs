@@ -33,5 +33,10 @@ namespace GraduateWork.Views
             _viewModel.CurrentUser.Password=TextBoxPassword.Text;
             _viewModel.Login();
         }
+
+        private void ButtonRegisterWindow_Click(object sender, RoutedEventArgs e)
+        {
+            new RegisterWindow().ShowDialog();
+        }
     }
 }

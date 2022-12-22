@@ -40,9 +40,18 @@
         <Button x:Name="ButtonLogin"
                 Margin="40,10"
                 Height="50"
-                Width="100"
+                Width="200"
                 Content="Войти"
                 Style="{StaticResource buttonStyle}"
                 Click="ButtonLogin_Click"/>
+        <Button x:Name="ButtonRegisterWindow"
+                Margin="40,10"
+                Height="25"
+                Width="130"
+                Content="Регистрация"
+                Style="{StaticResource buttonStyle}"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Click="ButtonRegisterWindow_Click"/>
     </StackPanel>
 </Window>

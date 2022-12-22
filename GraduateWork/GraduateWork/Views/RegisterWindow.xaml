@@ -1,0 +1,103 @@
+﻿<Window x:Class="GraduateWork.Views.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraduateWork.Views"
+        xmlns:viewModel="clr-namespace:GraduateWork.ViewModels"
+        mc:Ignorable="d"
+        Title="Регистрация" Height="400" Width="600"
+        Icon="\Resources\Icon.ico"
+        Background="{StaticResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Calibri"
+        FontSize="12">
+    <Window.DataContext>
+        <viewModel:RegisterWindowViewModel/>
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0"
+                        Margin="5">
+                <TextBlock Text="Фамилия"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding LastName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        Margin="5">
+                <TextBlock Text="Имя"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding FirstName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="2"
+                        Margin="5">
+                <TextBlock Text="Отчество"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding MiddleName}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0"
+                        Margin="5">
+                <TextBlock Text="Email"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding Email}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        Margin="5">
+                <TextBlock Text="Телефон"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding Phone}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0"
+                        Margin="5">
+                <TextBlock Text="Логин"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding Login}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        Margin="5">
+                <TextBlock Text="Пароль"
+                           Style="{StaticResource textBlockStyle}"/>
+                <TextBox Style="{StaticResource textBoxStyle}"
+                         Text="{Binding Password}"/>
+            </StackPanel>
+        </Grid>
+        <Button x:Name="ButtonRegister"
+                Style="{StaticResource buttonStyle}"
+                Height="35"
+                Width="180"
+                Content="Зарегистрировать"
+                Click="ButtonRegister_Click"/>
+    </StackPanel>
+</Window>
